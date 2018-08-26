@@ -1,3 +1,6 @@
+/**
+ * Use tire tree to record all words
+ */
 class WordDictionary {
     
     TrieNode root;
