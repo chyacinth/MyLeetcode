@@ -1,3 +1,8 @@
+/**
+ * Use sum and partial_sum, we can easily find the left sum and right
+ * sum as: partial_sum and sum - num - partial_sum
+ * So we succeed in solving this problem by O(N) time and O(1) space
+ */ 
 class Solution {
 public:
     int pivotIndex(vector<int>& nums) {
