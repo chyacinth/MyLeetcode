@@ -2,6 +2,7 @@
  * Use two heap to record the max val of first half and 
  * the min val of the second half. Keep the size of second half
  * always equal to the size of first half or add one.
+ * Important!! The 
  */
 class MedianFinder {
   private Queue<Long> small = new PriorityQueue<>(11, (a,b) -> {return b.compareTo(a);});
@@ -12,7 +13,7 @@ class MedianFinder {
     
   public void addNum(int num) {    
     if (small.size() >= large.size()) {
-      if (large.isEmpty() || (long)num >= small.peek()) { 
+      if (large.isEmpty() || (long)num >= small.peek()) {
         large.offer((long)num); 
       } else {
         large.offer(small.poll());
