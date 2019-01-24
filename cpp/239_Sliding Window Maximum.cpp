@@ -7,7 +7,6 @@
  * then result[i] = max(max_right[i], max_left[i+k-1])
  **/ 
 
-
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
