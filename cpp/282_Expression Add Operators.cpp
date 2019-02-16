@@ -1,3 +1,8 @@
+/*
+ 可以参考Solution的方法。但是那个方法不完全正确。对于乘法，他没有考虑2+2*3变成2+2*34的情况。因此我们
+ 需要额外记录最近的运算符号。如果是乘法，那么prev的值的更新需要特殊处理，即找到最近的那个数，然后prev
+ 除以那个数再乘以那个数*(10+new_digit)。
+*/
 class Solution {
 public:
     void helper(string &est_str, long prev, long eval, char last_op, const string &ori_str, int idx, long target) {
