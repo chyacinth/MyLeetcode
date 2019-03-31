@@ -5,54 +5,56 @@
  * 新进来的运算符都是不放入post的，都是放入ops
  */ 
 class Solution {
-public:    
+public:
     int calculate(string s) {
-        s = "("s + s + ")"s;
         stack<char> ops;
-        queue<std::variant<long, char>> post;
-        bool is_forming_digit = false;
+        queue<variant<long, char>> post;
         long temp = 0;
-        for (char ch : s) {
-            if (isdigit(ch)) {
-                is_forming_digit = true;
-                temp = temp * 10 + (ch - '0');
-            } else if (ch != ' ') {
-                if (is_forming_digit) {
+        bool forming_digit = false;
+        s = "("s + s + ")"s;
+        for (char c : s) {            
+            if (c == ' ') { continue; }
+            if (isdigit(c)) {
+                forming_digit = true;
+                temp = 10 * temp + (c - '0');
+            } else {
+                if (forming_digit) {
                     post.push(temp);
-                    is_forming_digit = false;
-                    temp = 0;                
+                    temp = 0;
+                    forming_digit = false;                    
                 }
-                if (ch == '(') {
-                    ops.push(ch);
-                } else if (ch == ')') {
+                if (c == '(') {
+                    ops.push(c);
+                } else if (c == ')') {
                     while (ops.top() != '(') {
                         post.push(ops.top());
                         ops.pop();
                     }
                     ops.pop();
-                } else {
-                    while (compare(ch, ops.top()) <= 0) {
+                } else {                    
+                    while (compare(ops.top(), c) >=0) {
                         post.push(ops.top());
                         ops.pop();
                     }
-                    ops.push(ch);
+                    ops.push(c);
                 }
             }
-        }
+        }        
         stack<long> result;
-        while (!post.empty()) {            
+        while (!post.empty()) {
             auto v = post.front();
             switch (v.index()) {
                 // v is long
-                case 0 : result.push(get<long>(v));                                        
+                case 0 : 
+                    result.push(get<long>(v));
                     break;
                 // v is char
-                case 1 :
+                case 1 :                    
                     long num2 = result.top();
                     result.pop();
                     long num1 = result.top();
                     result.pop();
-                    result.push(calc(num1, num2, get<char>(v)));
+                    result.push(calc(num1, num2, get<char>(v)));                    
                     break;
             }
             post.pop();
@@ -60,9 +62,8 @@ public:
         if (result.empty()) {
             return 0;
         }
-        return result.top();
+        return static_cast<int>(result.top());
     }
-    
     long calc(long n1, long n2, char ops) {
         switch (ops) {
             case '+' : return n1 + n2;
