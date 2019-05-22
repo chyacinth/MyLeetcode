@@ -15,7 +15,7 @@ class Solution:
                 j -= 1
             else:
                 break
-        
+
         for k in range(len(nums)):
             if (nums[k] == sorted_nums[i]):
                 outi = k
@@ -24,5 +24,5 @@ class Solution:
             if (nums[k] == sorted_nums[j]):
                 outj = k
                 break
-                
+
         return [outi, outj]
